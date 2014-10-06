@@ -130,7 +130,13 @@
             text-align: center;
         }
         .hide {
-            display: none;
+           display: none;
+        }
+        .tip {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            width: 240px;
         }
 
     </style>
@@ -157,7 +163,7 @@
     <div class="main">
         <div class="inner-main">
             <div class="wrap-invite-code">
-                <div>有邀请码领<span class="em">3</span>元，无邀请码领<span class="em">2</span>元!</div>
+                <div>有邀请码领<span class="em have-invite-code">3</span>元，无邀请码领<span class="em none-invite-code">2</span>元!</div>
                 <div>我的邀请码: <span class="invite-code"></span></div>
             </div>
 
@@ -174,7 +180,9 @@
     <div class="footer">
         <div class="copy-right">© 2014 xiaoqianbao.me. All Rights Reserved.</div>
     </div>
-    <div class="cover hide">点击右上角到浏览器下载</div>
+    <div class="cover hide">
+        <img class="tip" src="http://forsigner.github.io/assets/themes/twitter/img/tip.png" />
+    </div>
     <script type="text/javascript">
         function ajax(url, opts){
             var xhr = new XMLHttpRequest();
@@ -208,6 +216,19 @@
             }
         });
 
+        var isAndroid = (/android/gi).test(navigator.appVersion); //识别Android os
+        var isIos = (/iphone|ipad/gi).test(navigator.appVersion); //识别ios
+
+        if(isAndroid) {
+            document.querySelector('.have-invite-code').innerHTML = '2';
+            document.querySelector('.none-invite-code').innerHTML = '1';
+        } else if(isIos) {
+            document.querySelector('.have-invite-code').innerHTML = '3';
+            document.querySelector('.none-invite-code').innerHTML = '2';
+        }
+
+
+
         function isWeixin(){
             var ua = navigator.userAgent.toLowerCase();
 
@@ -235,6 +256,7 @@
             this.className = 'cover hide';
 
         });
+
 
     </script>
 
