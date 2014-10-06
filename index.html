@@ -39,7 +39,8 @@
         }
 
         //============================================================
-        ajax('http://120.24.54.63/popularize?userId=62&token=1234&timestamp=123', {
+        var userId = window.location.search.substring(1).split('=')[1];
+        ajax('http://120.24.54.63/invite-code?userId='+ userId, {
             method: 'GET',
             success: function(response){
                 console.log(JSON.parse(response));
