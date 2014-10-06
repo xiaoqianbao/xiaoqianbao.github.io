@@ -117,7 +117,21 @@
             color: #bbb;
             font-size: 0.7em;
         }
-
+        .cover {
+            position:absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+            color: #fff;
+            padding-top: 40px;
+            text-align: center;
+        }
+        .hide {
+            display: none;
+        }
 
     </style>
 </head>
@@ -148,7 +162,7 @@
             </div>
 
             <div class="align-center">
-                <button type="button" class="btn">下载</button>
+                <button type="button" id="dowanload" class="btn">下载</button>
                 <div class="align-center">
                     <span class="aos">Android /</span>
                     <span class="ios">iOS</span>
@@ -160,7 +174,7 @@
     <div class="footer">
         <div class="copy-right">© 2014 xiaoqianbao.me. All Rights Reserved.</div>
     </div>
-
+    <div class="cover hide">点击右上角到浏览器下载</div>
     <script type="text/javascript">
         function ajax(url, opts){
             var xhr = new XMLHttpRequest();
@@ -178,15 +192,14 @@
             xhr.send(opts.data);
         }
 
+        Element.prototype.on = Element.prototype.addEventListener;
         //============================================================
         var userId = window.location.search.substring(1).split('=')[1];
         ajax('http://120.24.54.63/invite-code?userId='+ userId, {
             method: 'GET',
             success: function(response){
-                console.log(JSON.parse(response));
+
                 var data = JSON.parse(response);
-
-
                 document.querySelector('.invite-code').innerHTML = data.d.inviteCode;
 
             },
@@ -194,22 +207,34 @@
                 console.log(response);
             }
         });
-        
-        function is_weixn(){
+
+        function isWeixin(){
             var ua = navigator.userAgent.toLowerCase();
-            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+
+            if(ua.match(/MicroMessenger/i) == 'micromessenger' || ua.match(/qq/i)) {
                 return true;
             } else {
                 return false;
             }
         }
 
-        
-        if(is_weixn) {
-            alert('请到浏览器下载');
-        } else {
-        }
 
+        document.querySelector('.btn').on('click', function(){
+
+            if(isWeixin()) {
+                document.querySelector('.cover').className = 'cover';
+
+            } else {
+                //document.querySelector('.cover').className = 'cover';
+
+            }
+
+        });
+
+        document.querySelector('.cover').on('click', function(){
+            this.className = 'cover hide';
+
+        });
 
     </script>
 
