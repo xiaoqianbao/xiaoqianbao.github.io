@@ -194,6 +194,17 @@
                 console.log(response);
             }
         });
+        
+        function is_weixn(){
+            var ua = navigator.userAgent.toLowerCase();
+            if(ua.match(/MicroMessenger/i)=="micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        
         if(is_weixn) {
             alert('请到浏览器下载');
         } else {
